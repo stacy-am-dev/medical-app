@@ -18,8 +18,8 @@ import java.util.Objects;
 
 public class PrescriptionWindow extends Window {
 
-    private Grid<Prescription> prescriptionGrid;
-    private boolean selection;
+    private final Grid<Prescription> prescriptionGrid;
+    private final boolean selection;
     private TextField descriptionText;
     private ComboBox<Patient> patientComboBox;
     private ComboBox<Doctor> doctorComboBox;

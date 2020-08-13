@@ -11,14 +11,14 @@ import java.util.List;
 
 public class PrescriptionDao implements DaoInterface<Prescription> {
 
-    private Connection connection = null;
+    private final Connection connection;
 
     public PrescriptionDao(Connection connection) {
         this.connection = connection;
     }
 
     @Override
-    public Prescription persist(Prescription entity) throws MedicalException {
+    public void persist(Prescription entity) throws MedicalException {
         Prescription prescription = new Prescription();
         String sql = "INSERT INTO TABLE_PRESCRIPTION(" +
                 "DESCRIPTION, " +
@@ -30,22 +30,26 @@ public class PrescriptionDao implements DaoInterface<Prescription> {
                 "VALUES (?,?,?,?,?,?)";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             preparedStatement.setString(1, entity.getDescription());
-            Long patientId = null;
-            if (entity.getPatient() != null)
+            Long patientId;
+            if (entity.getPatient() != null) {
                 patientId = entity.getPatient().getId();
-            preparedStatement.setLong(2, patientId);
-            Long doctorId = null;
-            if (entity.getDoctor() != null)
+                preparedStatement.setLong(2, patientId);
+            }
+            Long doctorId;
+            if (entity.getDoctor() != null) {
                 doctorId = entity.getDoctor().getId();
-            preparedStatement.setLong(3, doctorId);
-            Date dataCreation = null;
-            if (entity.getDataCreation() != null)
+                preparedStatement.setLong(3, doctorId);
+            }
+            Date dataCreation;
+            if (entity.getDataCreation() != null) {
                 dataCreation = new Date(entity.getDataCreation().getTime());
-            preparedStatement.setDate(4, dataCreation);
-            Date validity = null;
-            if (entity.getValidity() != null)
+                preparedStatement.setDate(4, dataCreation);
+            }
+            Date validity;
+            if (entity.getValidity() != null) {
                 validity = new Date(entity.getValidity().getTime());
-            preparedStatement.setDate(5, validity);
+                preparedStatement.setDate(5, validity);
+            }
             preparedStatement.setString(6, entity.getPriority());
             if (preparedStatement.executeUpdate() != 1) {
                 throw new MedicalException("Crating new Prescription failed");
@@ -64,7 +68,6 @@ public class PrescriptionDao implements DaoInterface<Prescription> {
         } catch (Exception e) {
             throw new MedicalException(e);
         }
-        return prescription;
     }
 
     @Override
@@ -110,22 +113,26 @@ public class PrescriptionDao implements DaoInterface<Prescription> {
                 "WHERE id = ?";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.setString(1, entity.getDescription());
-            Long patientId = null;
-            if (entity.getPatient() != null)
+            Long patientId;
+            if (entity.getPatient() != null) {
                 patientId = entity.getPatient().getId();
-            preparedStatement.setLong(2, patientId);
-            Long doctorId = null;
-            if (entity.getDoctor() != null)
+                preparedStatement.setLong(2, patientId);
+            }
+            Long doctorId;
+            if (entity.getDoctor() != null) {
                 doctorId = entity.getDoctor().getId();
-            preparedStatement.setLong(3, doctorId);
-            Date dataCreation = null;
-            if (entity.getDataCreation() != null)
+                preparedStatement.setLong(3, doctorId);
+            }
+            Date dataCreation;
+            if (entity.getDataCreation() != null) {
                 dataCreation = new Date(entity.getDataCreation().getTime());
-            preparedStatement.setDate(4, dataCreation);
-            Date validity = null;
-            if (entity.getValidity() != null)
+                preparedStatement.setDate(4, dataCreation);
+            }
+            Date validity;
+            if (entity.getValidity() != null) {
                 validity = new Date(entity.getValidity().getTime());
-            preparedStatement.setDate(5, validity);
+                preparedStatement.setDate(5, validity);
+            }
             preparedStatement.setString(6, entity.getPriority());
             preparedStatement.setLong(7, entity.getId());
             preparedStatement.executeUpdate();

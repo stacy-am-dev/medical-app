@@ -11,8 +11,8 @@ import java.util.List;
 
 public class DoctorWindow extends Window {
 
-    private Grid<Doctor> doctorGrid;
-    private boolean selection;
+    private final Grid<Doctor> doctorGrid;
+    private final boolean selection;
     private TextField nameText;
     private TextField surnameText;
     private TextField patronymicText;

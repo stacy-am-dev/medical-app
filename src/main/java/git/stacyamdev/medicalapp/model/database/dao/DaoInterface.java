@@ -7,10 +7,7 @@ import java.util.List;
 
 public interface DaoInterface<E extends Identified> {
 
-    /**
-     * Создает новую запись, соответствующую объекту entity
-     */
-    E persist(E entity) throws MedicalException;
+    void persist(E entity) throws MedicalException;
 
     E getByKey(Long key) throws MedicalException;
 

@@ -12,14 +12,14 @@ import java.util.List;
 
 public class PatientDao implements DaoInterface<Patient> {
 
-    private Connection connection = null;
+    private final Connection connection;
 
     public PatientDao(Connection connection) {
         this.connection = connection;
     }
 
     @Override
-    public Patient persist(Patient entity) throws MedicalException {
+    public void persist(Patient entity) throws MedicalException {
         Patient patient = new Patient();
         String sql = "INSERT INTO TABLE_PATIENT(" +
                 "NAME, " +
@@ -47,7 +47,6 @@ public class PatientDao implements DaoInterface<Patient> {
         } catch (Exception e) {
             throw new MedicalException(e);
         }
-        return patient;
     }
 
     @Override
